@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-md-30 col-lg-31">
+    <img class="img-fluid rounded-start" width="600" height="300" style="float: right;margin-top: 10%;"
+        src="{%  static 'image.png' %}" aria-hidden="true" alt="Note image">
+</div>
+<form method='POST'>{% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            {{ form.as_p }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary my-5">Submit</button>
+    <a href="{% url 'notes.list'%}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% if form.errors %}
+<div class=" alert alert-danger my-5">
+    {{form.errors.title.as_text}}
+</div>
+{% endif %}
+
+{% endblock %}

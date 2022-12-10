@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form method="post" class="p-4 p-md-5 border rounded-3 bg-light"> {% csrf_token %}
+    <div class="col-md-10 mx-auto col-lg-5">
+        <h1 class="display-4 fw-bold lh-1 mb-3">Sign up</h1>
+        <div class="form-floating mb-3">
+            {{form.username}}
+            <label for="username">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+            {{form.password1}}
+            <label for="username">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            {{form.password2}}
+            <label for="username">Confirm Password</label>
+        </div>
+        <input type="submit" class="btn btn-secondary text-center" name="Submit" />
+        <hr class="my-4">
+        <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+    </div>
+</form>
+{% endblock %}
