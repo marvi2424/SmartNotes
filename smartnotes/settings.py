@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tj0pa=5h=yyh@a^iaki+^qz&imfc&4ke=5vzuu#))875n_f73p"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,14 +84,25 @@ WSGI_APPLICATION = "smartnotes.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+"""
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
+"""
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": env("NAME"),
+        "USER": env("USER"),
+        "PASSWORD": env("PASSWORD"),
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
